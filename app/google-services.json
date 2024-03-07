@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "558233131696",
+    "project_id": "devpro-firebase-d8abf",
+    "storage_bucket": "devpro-firebase-d8abf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558233131696:android:f937fde8ed786abc8f7975",
+        "android_client_info": {
+          "package_name": "com.example.doannam2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdQk7ip2bN69pWn7mx5-RbdFUV1iYqM38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

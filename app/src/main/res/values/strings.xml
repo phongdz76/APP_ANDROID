@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">doannam2</string>
+    <string name="drawer_close">close drawer</string>
+    <string name="drawer_open">open drawer</string>
+
+</resources>
