@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".onClickforgotpass">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+    <EditText
+        android:hint="Email"
+        android:id="@+id/emailAdress"
+        android:layout_width="370dp"
+        android:layout_height="70dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="164dp"
+        tools:ignore="MissingConstraints"></EditText>
+
+    <Button
+        android:id="@+id/btnResetPassword"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="277dp"
+        tools:ignore="MissingConstraints"
+        android:text="Rest"
+        />
+
+    <Button
+        android:id="@+id/btnpasswordback"
+        android:layout_width="250dp"
+        android:text="back"
+        android:layout_height="70dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="363dp" />
+
+</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

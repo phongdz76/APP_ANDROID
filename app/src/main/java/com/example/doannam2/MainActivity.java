@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
     EditText edtEmail, edtPassword;
     TextView btnforgerpass,signup;
+    String stremail;
+    String strpassword;
+
 
     ProgressDialog progressDialog;
 
@@ -38,15 +41,14 @@ public class MainActivity extends AppCompatActivity {
         addcontrol();
         initlistener();
         settitletoolbar();
-
-
         btnforgerpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickforgotpass();
+                Intent intent = new Intent(MainActivity.this, onClickforgotpass.class);
+                startActivity(intent);
+                finish();
             }
         });
-
     }
 
     private void initlistener() {
@@ -67,20 +69,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onClickSignin() {
-        String stremail = edtEmail.getText().toString().trim();
-        String strpassword = edtPassword.getText().toString().trim();
+
+        stremail = edtEmail.getText().toString().trim();
+        strpassword = edtPassword.getText().toString().trim();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         progressDialog.show();
         auth.signInWithEmailAndPassword(stremail, strpassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            progressDialog.dismiss();
-                            // Sign in success, update UI with the signed-in user's information
-                            Intent intent1= new Intent(MainActivity.this,manhinhchinh.class);
-                            startActivity(intent1);
-                            finishAffinity();
+
+                            if (isAdminUser(stremail, strpassword)) {
+                                // Nếu là admin, chuyển đến phần quyền layout
+                                Intent intent1 = new Intent(MainActivity.this, manhinhchinh.class);
+                                startActivity(intent1);
+                                finishAffinity();
+                            } else {
+                                // Nếu không phải admin, thực hiện các bước khác nếu cần
+                                // Ví dụ: chuyển đến màn hình chính
+                                Intent intent2 = new Intent(MainActivity.this, phanquyen.class);
+                                startActivity(intent2);
+                                finishAffinity();
+                            }
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -91,12 +103,17 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+    }
+    private boolean isAdminUser(String email, String password) {
+
+        return email.equals("minhchi521@gmail.com") && password.equals("minhchi521");
     }
 
     private void getDataIntent(){
-        String strphonenumber = getIntent().getStringExtra("phone_number");
-        TextView tvUserInfor = findViewById(R.id.tv_user_infor);
-        tvUserInfor.setText(strphonenumber);
+        //String strphonenumber = getIntent().getStringExtra("phone_number");
+        //TextView tvUserInfor = findViewById(R.id.tv_user_infor);
+        //tvUserInfor.setText(strphonenumber);
     }
     private void settitletoolbar(){
         if(getSupportActionBar() != null)
@@ -113,7 +130,5 @@ public class MainActivity extends AppCompatActivity {
         btnforgerpass = findViewById(R.id.btnforgotpass);
         progressDialog = new ProgressDialog(this);
     }
-    public void onClickforgotpass() {
 
-    }
 }

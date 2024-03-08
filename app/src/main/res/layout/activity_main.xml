@@ -38,24 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/tv_user_infor"
-        android:layout_width="356dp"
-        android:layout_height="60dp"
 
-        android:layout_marginTop="384dp"
-        android:background="@drawable/custom_edt"
-        android:drawableLeft="@drawable/email"
-        android:drawablePadding="6dp"
-
-        android:ems="10"
-        android:hint="Phone"
-        android:inputType="textEmailAddress"
-        android:paddingLeft="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edtPassword"
