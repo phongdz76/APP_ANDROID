@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".manhinhchinh"
+    tools:context=".Activity.manhinhchinh"
     tools:openDrawer="start">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +27,7 @@
                 android:background="@color/green"
                 app:menu="@menu/nav_menu"
                 app:navigationIcon="@drawable/menu"
-                app:title="Navigation Drawer"
+                app:title="Trang Chủ"
                 app:titleTextColor="@color/white" />
 
             <androidx.appcompat.widget.SearchView

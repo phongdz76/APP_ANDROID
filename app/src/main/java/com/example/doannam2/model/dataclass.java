@@ -1,18 +1,9 @@
-package com.example.doannam2;
+package com.example.doannam2.model;
 
-public class Cartdata {
+public class dataclass {
     private String dataTitle;
+    private String dataDesc;
     private int datalang;
-    private int quantity;
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     private String dataimage;
     private  String key;
 
@@ -24,17 +15,21 @@ public class Cartdata {
         this.key = key;
     }
 
-    public Cartdata(String dataTitle,  int datalang, String dataimage) {
+    public dataclass(String dataTitle, String dataDesc, int datalang, String dataimage) {
         this.dataTitle = dataTitle;
-
+        this.dataDesc = dataDesc;
         this.datalang = datalang;
         this.dataimage = dataimage;
     }
-    public  Cartdata(){
+    public  dataclass(){
 
     }
     public String getDataTitle() {
         return dataTitle;
+    }
+
+    public String getDataDesc() {
+        return dataDesc;
     }
 
     public int getDatalang() {

@@ -1,9 +1,8 @@
-package com.example.doannam2;
+package com.example.doannam2.Activity;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,23 +18,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.doannam2.R;
+import com.example.doannam2.model.dataclass;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class upload extends AppCompatActivity {
 
@@ -90,16 +85,16 @@ public class upload extends AppCompatActivity {
         });
     }
 
+    StorageReference imageRef = FirebaseStorage.getInstance().getReference().child("images");
     public void saveData() {
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
-                .child(uri.getLastPathSegment());
+
         AlertDialog.Builder builder = new AlertDialog.Builder(upload.this);
         builder.setCancelable(false);
         builder.setView(R.layout.progress_layout);
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        imageRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
@@ -108,7 +103,6 @@ public class upload extends AppCompatActivity {
                Uri urlImage = uriTask.getResult();
                imageURL = urlImage.toString();
                uploadData();
-               uploadfirestore();
                dialog.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -117,38 +111,6 @@ public class upload extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-    }
-
-    private void uploadfirestore() {
-        String title = uploadTopic.getText().toString().trim();
-        String desc = uploadDesc.getText().toString().trim();
-        int lang = Integer.parseInt(uploadlang.getText().toString());
-
-        // Tạo lớp dữ liệu
-        dataclass dataClass = new dataclass(title, desc, lang, imageURL);
-
-        // Khởi tạo Firebase Firestore
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        // Tạo ID tài liệu duy nhất
-        String currentData = db.collection("Products").document().getId();
-
-        // Lưu trữ dữ liệu
-        db.collection("Products").document(currentData)
-                .set(dataClass)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
     }
 
     public  void uploadData(){
@@ -160,15 +122,17 @@ public class upload extends AppCompatActivity {
         dataclass dataClass = new dataclass(title,desc,lang,imageURL);
 
 
-        String currentData = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+        String productID = FirebaseDatabase.getInstance().getReference().child("Android Products").push().getKey();
 
-        FirebaseDatabase.getInstance().getReference("Android Products").child(currentData)
+
+
+        FirebaseDatabase.getInstance().getReference("Android Products").child(productID)
                 .setValue(dataClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(upload.this,"saved",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(upload.this,manhinhchinh.class);
+                            Intent intent = new Intent(upload.this, manhinhchinh.class);
                             startActivity(intent);
                             finish();
                         }
@@ -183,8 +147,4 @@ public class upload extends AppCompatActivity {
 
 
     }
-
-
-
-
 }

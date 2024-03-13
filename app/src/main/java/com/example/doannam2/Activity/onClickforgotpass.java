@@ -1,4 +1,4 @@
-package com.example.doannam2;
+package com.example.doannam2.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.doannam2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,7 +55,7 @@ public class onClickforgotpass extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(onClickforgotpass.this,"Reset Password link has been sent to your registered email",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(onClickforgotpass.this,MainActivity.class);
+                Intent intent = new Intent(onClickforgotpass.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }

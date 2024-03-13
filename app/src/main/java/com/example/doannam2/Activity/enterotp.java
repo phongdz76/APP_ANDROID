@@ -1,4 +1,4 @@
-package com.example.doannam2;
+package com.example.doannam2.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.doannam2.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -135,7 +136,7 @@ public class enterotp extends AppCompatActivity {
                 });
     }
     private  void goToMainActivity(String phoneNumber){
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("Phone_number",phoneNumber);
         startActivity(intent);
     }

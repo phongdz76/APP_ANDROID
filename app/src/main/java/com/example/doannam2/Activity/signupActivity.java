@@ -1,4 +1,4 @@
-package com.example.doannam2;
+package com.example.doannam2.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.doannam2.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -59,7 +60,7 @@ public class signupActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Intent intent = new Intent(signupActivity.this,phanquyen.class);
+                            Intent intent = new Intent(signupActivity.this, phanquyen.class);
                             startActivity(intent);
                             finishAffinity();
                         } else {

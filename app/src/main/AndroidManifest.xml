@@ -15,41 +15,41 @@
         android:theme="@style/Theme.Doannam2"
         tools:targetApi="31">
         <activity
-            android:name=".phanquyen"
+            android:name=".Activity.phanquyen"
             android:exported="false" />
         <activity
-            android:name=".onClickforgotpass"
+            android:name=".Activity.onClickforgotpass"
             android:exported="false" />
         <activity
-            android:name=".CartActivity"
+            android:name=".Activity.CartActivity"
             android:exported="false" />
 
         <activity
-            android:name=".UpdataActivity"
+            android:name=".Activity.UpdataActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".Activity.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".upload"
+            android:name=".Activity.upload"
             android:exported="false" />
         <activity
-            android:name=".signupActivity"
+            android:name=".Activity.signupActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activity.SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".enterotp"
+            android:name=".Activity.enterotp"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.manhinhchinh"
             android:exported="false" />
         <activity
-            android:name=".phonenumber"
+            android:name=".Activity.phonenumber"
             android:exported="false" />
         <activity
-            android:name=".manhinhchinh"
+            android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

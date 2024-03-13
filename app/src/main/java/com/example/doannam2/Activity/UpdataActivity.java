@@ -1,4 +1,4 @@
-package com.example.doannam2;
+package com.example.doannam2.Activity;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.doannam2.R;
+import com.example.doannam2.model.dataclass;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -140,6 +142,7 @@ public class UpdataActivity extends AppCompatActivity {
             }
         });
     }
+
     private void addcontrol() {
         updateButton=findViewById(R.id.updatabutton);
         updateDesc=findViewById(R.id.updatedesc);

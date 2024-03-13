@@ -12,23 +12,26 @@
     app:cardElevation="8dp">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-15dp"
+        >
+
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/recImage"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:id="@+id/recImage"
             android:layout_marginStart="20dp"
-            android:padding="8dp"
+            android:padding="5dp"
             android:scaleType="centerCrop"
             android:src="@drawable/uploadimage1"
-            app:shapeAppearanceOverlay="@style/roundedImageViewRound"/>
+            app:shapeAppearanceOverlay="@style/roundedImageViewRound" />
 
         <TextView
             android:id="@+id/recTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="15dp"
             android:layout_toEndOf="@+id/recImage"
             android:text="Title"
             android:textColor="@color/levender"
@@ -38,22 +41,14 @@
             android:id="@+id/recLang"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginStart="142dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="198dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="18dp"
             android:layout_toEndOf="@+id/recImage"
             android:text="Price"
             android:textAlignment="center"
             android:textColor="@color/levender"
             android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="330dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/baseline_add_shopping_cart_24"
-
-            android:gravity="center" />
 
         <TextView
             android:layout_width="140dp"

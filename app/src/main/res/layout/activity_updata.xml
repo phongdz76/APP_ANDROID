@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".UpdataActivity">
+    tools:context=".Activity.UpdataActivity">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +25,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="upData Data"
+                android:text="Update Product"
+                android:textStyle="bold"
                 android:textSize="30sp"
                 android:textAlignment="center"
                 android:textColor="@color/levender"
@@ -44,7 +45,7 @@
                 android:background="@drawable/color_border"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
-                android:hint="enter topic name"
+                android:hint="Enter Topic Name"
                 android:gravity="start|center_vertical"
                 android:textColor="@color/levender"/>
             <EditText
@@ -54,7 +55,7 @@
                 android:background="@drawable/color_border"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
-                android:hint="enter description"
+                android:hint="Enter Description"
                 android:gravity="start|center_vertical"
                 android:textColor="@color/levender"/>
             <EditText
@@ -64,7 +65,7 @@
                 android:background="@drawable/color_border"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
-                android:hint="enter language"
+                android:hint="Enter Prices"
                 android:gravity="start|center_vertical"
                 android:textColor="@color/levender"/>
             <Button

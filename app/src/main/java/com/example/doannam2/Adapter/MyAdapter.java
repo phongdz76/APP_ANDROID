@@ -1,5 +1,6 @@
-package com.example.doannam2;
+package com.example.doannam2.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,13 +14,23 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.doannam2.Activity.DetailActivity;
+import com.example.doannam2.R;
+import com.example.doannam2.model.Cartdata;
+import com.example.doannam2.model.dataclass;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private Context context;
-
 
     private List<dataclass> dataList;
 
@@ -36,7 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Glide.with(context).load(dataList.get(position).getDataimage()).into(holder.recImage);
         holder.recTitle.setText(dataList.get(position).getDataTitle());
         holder.recDesc.setText(dataList.get(position).getDataDesc());
@@ -71,6 +82,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
     ImageView recImage;
     TextView recTitle, recDesc, recLang;
     CardView recCard;
+    TextView addcartproduct;
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
         ontroll();
@@ -82,6 +94,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         recDesc = itemView.findViewById(R.id.recDesc);
         recLang = itemView.findViewById(R.id.recLang);
         recTitle = itemView.findViewById(R.id.recTitle);
+
     }
 }
 

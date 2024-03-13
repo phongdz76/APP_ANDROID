@@ -33,13 +33,21 @@
             android:text="250000"
             android:textColor="@color/green" />
 
+        <TextView
+            android:id="@+id/deteleCart"
+            android:layout_marginTop="-20dp"
+            android:layout_marginLeft="240dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/baseline_clear_24" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/decreaseQuantityButton"
+                android:id="@+id/btnMinus"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:text="-" />
@@ -52,11 +60,13 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/increaseQuantityButton"
+                android:id="@+id/btnPlus"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:text="+" />
         </LinearLayout>
+
+
 
     </LinearLayout>
 

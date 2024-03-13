@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CartActivity">
+    tools:context=".Activity.CartActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,28 +16,15 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:gravity="center_vertical"
-            android:background="@color/levender">
+            android:background="@color/green">
             <TextView
-                android:textColor="@color/green"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="90dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="19sp"
-                android:text="Product"/>
-            <TextView
-                android:textColor="@color/green"
-                android:layout_marginLeft="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="19sp"
-                android:text="Price"/>
-            <TextView
-                android:textColor="@color/green"
-                android:layout_marginLeft="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="19sp"
-                android:text="Qantity"/>
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:text="PRODUCT CART"/>
+
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewcart"
@@ -48,12 +35,23 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:gravity="center">
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total Amount:600"
-                android:textSize="19sp"/>
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Amount:"
+                    android:textSize="19sp"/>
+                <TextView
+                    android:id="@+id/totalprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="600"
+                    android:textSize="19sp"/>
+            </LinearLayout>
             <Button
+                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CHECKOUT"/>
