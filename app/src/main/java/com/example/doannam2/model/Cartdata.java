@@ -4,10 +4,17 @@ public class Cartdata {
     private String dataTitle;
     private int dataPrice;
     private String dataimage;
-    private int quantity; // Số lượng sản phẩm trong giỏ hàng
+    private int quantity;// Số lượng sản phẩm trong giỏ hàng
+    private  float totalPrice;
     private String key;
 
+    public float getTotalPrice() {
+        return totalPrice;
+    }
 
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public String getKey() {
         return key;
@@ -56,8 +63,5 @@ public class Cartdata {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-    public int calulateTotalPrice(){
-        return this.quantity * this.dataPrice;
     }
 }

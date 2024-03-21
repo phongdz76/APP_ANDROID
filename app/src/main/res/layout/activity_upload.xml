@@ -33,7 +33,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/uploadimage1"
+                android:src="@drawable/addimage"
                 android:id="@+id/uploadimage"
                 android:layout_marginTop="10dp"
                 android:scaleType="fitCenter"/>

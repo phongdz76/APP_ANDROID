@@ -42,6 +42,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -55,15 +57,17 @@ public class CartActivity extends AppCompatActivity {
 
     // Khai báo các biến thành viên
     ImageView productImage;
-    TextView productPrice,productName;
+    TextView productPrice,productName,totalAmountext,backCart;
     DatabaseReference databaseReference;
     RecyclerView recyclerViewcart;
+    int totalAmount;
 
     List<Cartdata> cartdatalist;
-    ValueEventListener eventListener;
-    TextView totalAmount;
+    ValueEventListener eventListener,eventListener1;
 
-    private double totalCartPrice = 0;
+    Button checkout;
+
+    FirebaseFunctions mfunctions;
     cartadapter Adapter;
 
     @Override
@@ -71,6 +75,8 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);  // Thiết lập giao diện
         addcontrol();
+        mfunctions = FirebaseFunctions.getInstance();
+        
         recyclerViewcart = findViewById(R.id.recyclerViewcart);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(CartActivity.this,1);
         recyclerViewcart.setLayoutManager(gridLayoutManager);
@@ -82,7 +88,7 @@ public class CartActivity extends AppCompatActivity {
         dialog.show();
 
         cartdatalist = new ArrayList<>();
-        Adapter = new cartadapter(CartActivity.this,cartdatalist);
+        Adapter = new cartadapter(CartActivity.this,cartdatalist,databaseReference);
         recyclerViewcart.setAdapter(Adapter);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("cart");
@@ -93,11 +99,14 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 cartdatalist.clear();
+                totalAmount = 0;
                 for (DataSnapshot itemSnapshot: snapshot.getChildren()){
                     Cartdata cartdata = itemSnapshot.getValue(Cartdata.class);
+                    totalAmount += cartdata.getTotalPrice();
                     cartdata.setKey(itemSnapshot.getKey());
                     cartdatalist.add(cartdata);
                 }
+                totalAmountext.setText(String.valueOf(totalAmount));
                 Adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
@@ -107,17 +116,39 @@ public class CartActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        cartdatalist.clear();
+                        Adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
     }
-
-
-
-
     private void addcontrol() {
-        totalAmount= findViewById(R.id.totalprice);
+        totalAmountext= findViewById(R.id.totalprice);
         productImage=findViewById(R.id.productImage);
         productPrice=findViewById(R.id.productPrice);
         productName=findViewById(R.id.productName);
-
+        checkout = findViewById(R.id.checkout);
+        backCart = findViewById(R.id.backCart);
+        backCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartActivity.this,manhinhchinh.class);
+                startActivity(intent);
+            }
+        });
     }
+
 
 }

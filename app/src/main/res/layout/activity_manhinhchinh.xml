@@ -68,7 +68,6 @@
                 app:itemRippleColor="@android:color/transparent"
                 app:labelVisibilityMode="unlabeled"
                 app:menu="@menu/bottom_menu" />
-
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -58,6 +58,8 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 moveDatecart();
+                Intent intent = new Intent(DetailActivity.this,CartActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -69,6 +71,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+
                     String productName = dataSnapshot.child("dataTitle").getValue(String.class);
                     String productImage = dataSnapshot.child("dataimage").getValue(String.class);
                     int productPrice = dataSnapshot.child("datalang").getValue(Integer.class);

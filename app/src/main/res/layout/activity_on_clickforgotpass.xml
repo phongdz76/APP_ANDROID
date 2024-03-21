@@ -5,13 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.onClickforgotpass">
+    tools:context=".Activity.onClickforgotpass"
+    >
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="190dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/logo2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 <LinearLayout
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center">
+
+
     <EditText
+        android:background="@drawable/custom_button"
         android:hint="Email"
         android:id="@+id/emailAdress"
         android:layout_width="370dp"
@@ -20,9 +36,11 @@
         tools:layout_editor_absoluteY="164dp"
         tools:ignore="MissingConstraints"></EditText>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_marginTop="15dp"
         android:id="@+id/btnResetPassword"
-        android:layout_width="250dp"
+        android:layout_width="290dp"
+        android:background="@drawable/color_border"
         android:layout_height="70dp"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="277dp"
@@ -30,10 +48,12 @@
         android:text="Rest"
         />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_marginTop="15dp"
         android:id="@+id/btnpasswordback"
-        android:layout_width="250dp"
+        android:layout_width="290dp"
         android:text="back"
+        android:background="@drawable/color_border"
         android:layout_height="70dp"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="80dp"

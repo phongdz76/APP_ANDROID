@@ -16,18 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.doannam2.Activity.DetailActivity;
 import com.example.doannam2.R;
-import com.example.doannam2.model.Cartdata;
 import com.example.doannam2.model.dataclass;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private Context context;
@@ -43,7 +35,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item,parent,false);
-        return new  MyViewHolder(view);
+        return new MyViewHolder(view);
     }
 
     @Override
@@ -77,6 +69,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         notifyDataSetChanged();
     }
 }
+
 class MyViewHolder extends RecyclerView.ViewHolder{
 
     ImageView recImage;

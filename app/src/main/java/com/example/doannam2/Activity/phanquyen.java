@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.doannam2.Adapter.MyAdapter;
 import com.example.doannam2.R;
 import com.example.doannam2.model.dataclass;
@@ -56,7 +58,7 @@ public class phanquyen extends AppCompatActivity {
         addcontrol();
         onsearch();
         initui();
-        //showUserInformation();
+        showUserInformation();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 phanquyen.this, drawerLayout, materialToolbar, R.string.drawer_close, R.string.drawer_open);
         drawerLayout.addDrawerListener(toggle);
@@ -157,9 +159,10 @@ public class phanquyen extends AppCompatActivity {
         });
     }
     private void initui(){
-        imgAvatar = findViewById(R.id.image_avatar);
-        tvName = findViewById(R.id.tv_name);
-        tvEmail = findViewById(R.id.tv_email);
+        navigationView = findViewById(R.id.navigation_View);
+        imgAvatar = navigationView.getHeaderView(0).findViewById(R.id.image_avatar);
+        tvName =navigationView.getHeaderView(0). findViewById(R.id.tv_name);
+        tvEmail = navigationView.getHeaderView(0). findViewById(R.id.tv_email);
     }
     private  void showUserInformation(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -169,17 +172,16 @@ public class phanquyen extends AppCompatActivity {
         }
         String name = user.getDisplayName();
         String email = user.getEmail();
-        //Uri photoUrl = user.getPhotoUrl();
+        Uri photoUrl = user.getPhotoUrl();
 
-        if(name != null)
-        {
+        if(name == null){
+            tvName.setVisibility(View.GONE);
+        }else {
             tvName.setVisibility(View.VISIBLE);
             tvName.setText(name);
-        }else {
-            tvName.setVisibility(View.GONE);
         }
         tvEmail.setText(email);
-        //Glide.with(this).load(photoUrl).error(R.drawable.maleuser).into(imgAvatar);
+        Glide.with(this).load(photoUrl).error(R.drawable.maleuser).into(imgAvatar);
     }
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {

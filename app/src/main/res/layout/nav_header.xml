@@ -17,7 +17,7 @@
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="minhchi521"
+        android:text="null"
         android:textStyle="bold"
         android:textSize="30dp"
         android:layout_marginTop="10dp"/>
@@ -25,7 +25,7 @@
         android:id="@+id/tv_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="minhchi521@gmail.com"
+        android:text="null"
         android:textStyle="bold"
         android:textSize="18dp"
         android:layout_marginBottom="10dp"/>

@@ -1,5 +1,9 @@
 package com.example.doannam2.Activity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -12,15 +16,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.doannam2.Adapter.MyAdapter;
+import com.example.doannam2.MyProfile;
 import com.example.doannam2.R;
 import com.example.doannam2.model.dataclass;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -34,34 +44,62 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class manhinhchinh extends AppCompatActivity {
-
+    public  static final int MY_REQUEST_CODE =10;
    DrawerLayout drawerLayout;
    MaterialToolbar materialToolbar;
-
-   private ImageView imgAvatar;
-   private TextView tvName,tvEmail;
+   ImageView imgAvatar;
+   TextView tvName,tvEmail;
    NavigationView navigationView;
    FloatingActionButton fab;
-
    RecyclerView recyclerView;
    List<dataclass> dataList;
    DatabaseReference databaseReference;
    ValueEventListener eventListener;
    SearchView searchView;
    MyAdapter adapter;
+   MyProfile parentActivity ;
 
+   final private ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
+           new ActivityResultContracts.StartActivityForResult(),
+           new ActivityResultCallback<ActivityResult>() {
+       @Override
+       public void onActivityResult(ActivityResult result) {
+           if(result.getResultCode() == RESULT_OK){
+               Intent intent = result.getData();
+               if(intent == null){
+                   return;
+               }
+                Uri uri = intent.getData();
+               parentActivity.setUri(uri);
+               try {
+                   Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+                   parentActivity.setBitmapImageView(bitmap);
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+           }
+       }
+   });
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manhinhchinh);
         addcontrol();
-        //initui();
+        navigationView = findViewById(R.id.navigation_View);
+        imgAvatar = navigationView.getHeaderView(0).findViewById(R.id.image_avatar);
+        tvName =navigationView.getHeaderView(0). findViewById(R.id.tv_name);
+        tvEmail = navigationView.getHeaderView(0). findViewById(R.id.tv_email);
         onsearch();
-        //showUserInformation();
+        showUserInformation();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            parentActivity = (MyProfile) extras.getSerializable("parentActivity");
+        }
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 manhinhchinh.this, drawerLayout, materialToolbar, R.string.drawer_close, R.string.drawer_open);
         drawerLayout.addDrawerListener(toggle);
@@ -103,7 +141,8 @@ public class manhinhchinh extends AppCompatActivity {
                     Toast.makeText(manhinhchinh.this, "home", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                 } else if (item.getItemId()==R.id.Profile) {
-                    Toast.makeText(manhinhchinh.this,"Profile",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(manhinhchinh.this, MyProfile.class);
+                    startActivity(intent);
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }
                 else if (item.getItemId()==R.id.setting) {
@@ -122,6 +161,7 @@ public class manhinhchinh extends AppCompatActivity {
                 return false;
             }
         });
+
     }
     public void searchList(String text){
         ArrayList<dataclass> searchList = new ArrayList<>();
@@ -141,7 +181,7 @@ public class manhinhchinh extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         materialToolbar = findViewById(R.id.materialToolBar);
         fab = findViewById(R.id.fab1);
-        navigationView = findViewById(R.id.navigation_View);
+
         recyclerView = findViewById(R.id.recyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(manhinhchinh.this,1);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -179,12 +219,7 @@ public class manhinhchinh extends AppCompatActivity {
             }
         });
     }
-    private void initui(){
-        imgAvatar = findViewById(R.id.image_avatar);
-        tvName = findViewById(R.id.tv_name);
-        tvEmail = findViewById(R.id.tv_email);
-    }
-   private  void showUserInformation(){
+   public   void showUserInformation(){
        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null)
         {
@@ -192,18 +227,33 @@ public class manhinhchinh extends AppCompatActivity {
         }
         String name = user.getDisplayName();
         String email = user.getEmail();
-        //Uri photoUrl = user.getPhotoUrl();
+        Uri photoUrl = user.getPhotoUrl();
 
-        if(name != null)
-        {
+        if(name == null){
+            tvName.setVisibility(View.GONE);
+        }else {
             tvName.setVisibility(View.VISIBLE);
             tvName.setText(name);
-        }else {
-            tvName.setVisibility(View.GONE);
         }
-        tvName.setText(name);
         tvEmail.setText(email);
-        //Glide.with(this).load(photoUrl).error(R.drawable.maleuser).into(imgAvatar);
+        Glide.with(this).load(photoUrl).error(R.drawable.maleuser).into(imgAvatar);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_REQUEST_CODE){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                openGallery();
+            }
+        }
+    }
+
+    public void openGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        mActivityResultLauncher.launch(Intent.createChooser(intent,"select images"));
     }
 
     @Override

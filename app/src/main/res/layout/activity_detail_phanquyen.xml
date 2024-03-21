@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.DetailActivity">
+    tools:context=".Activity.DetailPhanquyen">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,34 +48,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/deleteButton"
-            android:src="@drawable/baseline_delete_24"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/color_border"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="30dp"
-            ></com.google.android.material.floatingactionbutton.FloatingActionButton>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/editButton"
-            android:src="@drawable/baseline_edit_24"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="100dp"
-            android:layout_marginBottom="30dp"
-            ></com.google.android.material.floatingactionbutton.FloatingActionButton>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addToCartButton"
+            android:layout_marginLeft="150dp"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="115dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="359dp"
             android:background="@drawable/color_border"
             android:text="Thêm vào Giỏ Hàng" />
     </RelativeLayout>
