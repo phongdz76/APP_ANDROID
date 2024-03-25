@@ -21,6 +21,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,11 +61,19 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 moveDatecart();
                 Intent intent = new Intent(DetailActivity.this,CartActivity.class);
+                intent.putExtra("Title",detailTitle.getText().toString());
+                intent.putExtra("Description",detailDesc.getText().toString());
+                intent.putExtra("Language",detailLang.getText().toString());
+                intent.putExtra("Image",imageUrl);
+                intent.putExtra("key",key);
                 startActivity(intent);
             }
         });
 
     }
+
+
+
     private void moveDatecart() {
         DatabaseReference sourceReference = FirebaseDatabase.getInstance().getReference("Android Products").child(key);
 
@@ -96,7 +106,8 @@ public class DetailActivity extends AppCompatActivity {
                             Toast.makeText(DetailActivity.this, "Lỗi khi chuyển dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
-                } else {
+                }
+                else {
                     Toast.makeText(DetailActivity.this, "Không tìm thấy dữ liệu để chuyển", Toast.LENGTH_SHORT).show();
                 }
             }

@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 public class phonenumber extends AppCompatActivity {
 
     public static  final String TAG = phonenumber.class.getName();
-    private EditText edtphonenumber;
+    private EditText edtphonenumber,diachi;
     private Button btnverifyphone;
     private FirebaseAuth mAuth;
     @Override
@@ -39,7 +39,6 @@ public class phonenumber extends AppCompatActivity {
         control();
         settitletoolbar();
         mAuth = FirebaseAuth.getInstance();
-
 
         btnverifyphone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +57,7 @@ public class phonenumber extends AppCompatActivity {
     private  void control()
     {
         edtphonenumber = findViewById(R.id.edtphonenumber);
+        diachi = findViewById(R.id.diachi);
         btnverifyphone = findViewById(R.id.btnphone);
     }
     private void onClickverifyphone(String strphonenumber)
@@ -104,6 +104,7 @@ public class phonenumber extends AppCompatActivity {
 
                             FirebaseUser user = task.getResult().getUser();
                             // Update UI
+                            assert user != null;
                             goToMainActivity(user.getPhoneNumber());
                         } else {
                             // Sign in failed, display a message and update the UI
@@ -125,6 +126,10 @@ public class phonenumber extends AppCompatActivity {
     private void goToEnterOtpActivity(String strphonenumber, String verificationId) {
         Intent intent = new Intent(this, enterotp.class);
         intent.putExtra("phone_number",strphonenumber);
+        String Strdiachi= diachi.getText().toString().trim();
+        intent.putExtra("diachi",Strdiachi);
+        String UidAdmin = getIntent().getStringExtra("UidAdmin");
+        intent.putExtra("UidAdmin",UidAdmin);
         intent.putExtra("verification_id",verificationId);
         startActivity(intent);
     }

@@ -15,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -90,16 +91,14 @@ public class manhinhchinh extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manhinhchinh);
         addcontrol();
+        String UidAdmin = getIntent().getStringExtra("UidAdmin");
         navigationView = findViewById(R.id.navigation_View);
         imgAvatar = navigationView.getHeaderView(0).findViewById(R.id.image_avatar);
         tvName =navigationView.getHeaderView(0). findViewById(R.id.tv_name);
         tvEmail = navigationView.getHeaderView(0). findViewById(R.id.tv_email);
         onsearch();
         showUserInformation();
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            parentActivity = (MyProfile) extras.getSerializable("parentActivity");
-        }
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 manhinhchinh.this, drawerLayout, materialToolbar, R.string.drawer_close, R.string.drawer_open);
         drawerLayout.addDrawerListener(toggle);
@@ -128,6 +127,7 @@ public class manhinhchinh extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 if(item.getItemId()==R.id.cart){
                     Intent intent = new Intent(manhinhchinh.this, CartActivity.class);
+                    intent.putExtra("UidAdmin",UidAdmin);
                     startActivity(intent);
                     finish();
                 }
@@ -183,7 +183,7 @@ public class manhinhchinh extends AppCompatActivity {
         fab = findViewById(R.id.fab1);
 
         recyclerView = findViewById(R.id.recyclerView);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(manhinhchinh.this,1);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(manhinhchinh.this,2);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(manhinhchinh.this);
@@ -201,6 +201,7 @@ public class manhinhchinh extends AppCompatActivity {
         dialog.show();
 
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 dataList.clear();

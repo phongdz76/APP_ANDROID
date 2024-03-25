@@ -8,6 +8,9 @@ public class Cartdata {
     private  float totalPrice;
     private String key;
 
+    public Cartdata(String productName, int productPrice, String productImage, int productquantity, int producttotalPrice) {
+    }
+
     public float getTotalPrice() {
         return totalPrice;
     }

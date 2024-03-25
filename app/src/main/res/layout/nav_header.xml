@@ -11,7 +11,7 @@
         android:layout_width="90dp"
         android:layout_height="95dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/maleuser"
+        android:src="@drawable/gay"
         />
     <TextView
         android:id="@+id/tv_name"

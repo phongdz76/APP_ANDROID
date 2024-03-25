@@ -1,19 +1,28 @@
 package com.example.doannam2.Activity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,7 +30,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.doannam2.Adapter.MyAdapter;
+import com.example.doannam2.Adapter.Adapterphanquyen;
+import com.example.doannam2.CartPhanquyen;
+import com.example.doannam2.MyProfile;
+import com.example.doannam2.MyProfilephanquyen;
 import com.example.doannam2.R;
 import com.example.doannam2.model.dataclass;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -34,22 +46,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class phanquyen extends AppCompatActivity {
-
     DrawerLayout drawerLayout;
     MaterialToolbar materialToolbar;
     NavigationView navigationView;
     private ImageView imgAvatar;
     private TextView tvName,tvEmail;
     RecyclerView recyclerView;
-    List<dataclass> dataList;
+    List<dataclass> dataListphanquyen;
     DatabaseReference databaseReference;
     ValueEventListener eventListener;
     SearchView searchView;
-    MyAdapter adapter;
+    Adapterphanquyen adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +86,17 @@ public class phanquyen extends AppCompatActivity {
                 return true;
             }
         });
-
-
+        materialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId()==R.id.cart){
+                    Intent intent = new Intent(phanquyen.this, CartPhanquyen.class);
+                    startActivity(intent);
+                    finish();
+                }
+                return false;
+            }
+        });
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -83,7 +104,8 @@ public class phanquyen extends AppCompatActivity {
                     Toast.makeText(phanquyen.this, "home", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                 } else if (item.getItemId()==R.id.Profile) {
-                    Toast.makeText(phanquyen.this,"Profile",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(phanquyen.this, MyProfile.class);
+                    startActivity(intent);
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }
                 else if (item.getItemId()==R.id.setting) {
@@ -105,7 +127,7 @@ public class phanquyen extends AppCompatActivity {
     }
     public void searchList(String text){
         ArrayList<dataclass> searchList = new ArrayList<>();
-        for(dataclass dataclass: dataList){
+        for(dataclass dataclass: dataListphanquyen){
             if(dataclass.getDataTitle().toLowerCase().contains(text.toLowerCase())){
                 searchList.add(dataclass);
             }
@@ -122,7 +144,7 @@ public class phanquyen extends AppCompatActivity {
         materialToolbar = findViewById(R.id.materialToolBar);
         navigationView = findViewById(R.id.navigation_View);
         recyclerView = findViewById(R.id.recyclerView);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(phanquyen.this,1);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(phanquyen.this,2);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(phanquyen.this);
@@ -131,9 +153,9 @@ public class phanquyen extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        dataList = new ArrayList<>();
+        dataListphanquyen = new ArrayList<>();
 
-        adapter = new MyAdapter(phanquyen.this,dataList);
+        adapter = new Adapterphanquyen(phanquyen.this,dataListphanquyen);
         recyclerView.setAdapter(adapter);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Android Products");
@@ -142,11 +164,11 @@ public class phanquyen extends AppCompatActivity {
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dataList.clear();
+                dataListphanquyen.clear();
                 for (DataSnapshot itemSnapshot: snapshot.getChildren()){
                     dataclass dataclass = itemSnapshot.getValue(dataclass.class);
                     dataclass.setKey(itemSnapshot.getKey());
-                    dataList.add(dataclass);
+                    dataListphanquyen.add(dataclass);
                 }
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
@@ -164,7 +186,7 @@ public class phanquyen extends AppCompatActivity {
         tvName =navigationView.getHeaderView(0). findViewById(R.id.tv_name);
         tvEmail = navigationView.getHeaderView(0). findViewById(R.id.tv_email);
     }
-    private  void showUserInformation(){
+    public void showUserInformation(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null)
         {
@@ -183,6 +205,7 @@ public class phanquyen extends AppCompatActivity {
         tvEmail.setText(email);
         Glide.with(this).load(photoUrl).error(R.drawable.maleuser).into(imgAvatar);
     }
+
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);

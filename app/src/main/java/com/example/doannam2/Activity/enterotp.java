@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.doannam2.R;
+import com.example.doannam2.hoadon;
+import com.example.doannam2.hoadonphanquyen;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -31,6 +33,7 @@ public class enterotp extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextView tvsentotp;
     private EditText edtotp;
+    private String diachi;
     private Button btnsentotp;
     private String mPhoneNumber;
     private String mVerificationId;
@@ -64,8 +67,10 @@ public class enterotp extends AppCompatActivity {
         });
     }
     private  void getDataIntent(){
+        diachi = getIntent().getStringExtra("diachi");
         mPhoneNumber = getIntent().getStringExtra("phone_number");
         mVerificationId = getIntent().getStringExtra("verification_id");
+
     }
     private void settitletoolbar(){
         if(getSupportActionBar() != null)
@@ -122,7 +127,8 @@ public class enterotp extends AppCompatActivity {
 
                             FirebaseUser user = task.getResult().getUser();
                             // Update UI
-                            goToMainActivity(user.getPhoneNumber());
+                            assert user != null;
+                            goTohoadon(user.getPhoneNumber());
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -135,9 +141,12 @@ public class enterotp extends AppCompatActivity {
                     }
                 });
     }
-    private  void goToMainActivity(String phoneNumber){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("Phone_number",phoneNumber);
-        startActivity(intent);
+    private  void goTohoadon(String phoneNumber){
+        Intent intent = new Intent(this,hoadon.class);
+        String UidAdmin = getIntent().getStringExtra("UidAdmin");
+            intent.putExtra("Phone_number", mPhoneNumber);
+            intent.putExtra("diachi", diachi);
+            intent.putExtra("UidAdmin", UidAdmin);
+            startActivity(intent);
     }
 }

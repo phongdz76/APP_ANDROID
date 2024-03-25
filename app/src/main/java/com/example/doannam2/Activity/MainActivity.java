@@ -18,8 +18,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
+
+
 
     EditText edtEmail, edtPassword;
     TextView btnforgerpass,signup;
@@ -33,10 +36,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null){
+            if (isAdminUser(currentUser.getUid())) {
+                // Nếu là admin, chuyển đến phần quyền layout
+                Intent intent1 = new Intent(MainActivity.this, manhinhchinh.class);
+                startActivity(intent1);
+                finishAffinity();
+            } else {
+            Intent intent = new Intent(MainActivity.this, phanquyen.class);
+            startActivity(intent);}
+        }
         setContentView(R.layout.activity_main);
         addcontrol();
         initlistener();
         settitletoolbar();
+
         btnforgerpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void onClickSignin() {
 
+
         stremail = edtEmail.getText().toString().trim();
         strpassword = edtPassword.getText().toString().trim();
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -76,18 +92,19 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
-
-                            if (isAdminUser(stremail, strpassword)) {
-                                // Nếu là admin, chuyển đến phần quyền layout
-                                Intent intent1 = new Intent(MainActivity.this, manhinhchinh.class);
-                                startActivity(intent1);
-                                finishAffinity();
-                            } else {
-                                // Nếu không phải admin, thực hiện các bước khác nếu cần
-                                // Ví dụ: chuyển đến màn hình chính
-                                Intent intent2 = new Intent(MainActivity.this, phanquyen.class);
-                                startActivity(intent2);
-                                finishAffinity();
+                            String userID = FirebaseAuth.getInstance().getUid();
+                            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                            if (currentUser != null){
+                                if (isAdminUser(currentUser.getUid())) {
+                                    // Nếu là admin, chuyển đến phần quyền layout
+                                    Intent intent1 = new Intent(MainActivity.this, manhinhchinh.class);
+                                    intent1.putExtra("UidAdmin",userID);
+                                    startActivity(intent1);
+                                    finishAffinity();
+                                } else {
+                                    Intent intent = new Intent(MainActivity.this, phanquyen.class);
+                                    intent.putExtra("Uiduser",userID);
+                                    startActivity(intent);}
                             }
 
                         } else {
@@ -101,11 +118,14 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }
-    private boolean isAdminUser(String email, String password) {
+    private boolean isAdminUser(String uId) {
 
-        return email.equals("minhchi521@gmail.com") && password.equals("minhchi521");
+        if (uId.equals("Mr25iKbCEUbrh8aKyXRrO7JRhxk2")){
+            return true;
+        } else {
+            return  false;
+        }
     }
-
     private void getDataIntent(){
         //String strphonenumber = getIntent().getStringExtra("phone_number");
         //TextView tvUserInfor = findViewById(R.id.tv_user_infor);

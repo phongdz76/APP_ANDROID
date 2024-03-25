@@ -63,7 +63,7 @@ public class cartadapter extends RecyclerView.Adapter<MyCartHolder> {
 
 }
 class MyCartHolder extends RecyclerView.ViewHolder {
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference,databaseReference1;
     ImageView Productimage;
     TextView ProductTitle, ProductPrice,ProductQuantity;
     TextView totalAmount;
@@ -99,6 +99,7 @@ class MyCartHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 databaseReference = FirebaseDatabase.getInstance().getReference("cart");
+                databaseReference1= FirebaseDatabase.getInstance().getReference("hoadon");
                 int currentQuantity = cartItem.getQuantity();
                 int newQuantity = currentQuantity + 1;
                 cartItem.setQuantity(newQuantity);

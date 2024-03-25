@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".hoadon">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/backshop"
+                android:layout_marginTop="-10dp"
+                android:layout_marginLeft="3dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/back"/>
+            <TextView
+                android:layout_marginLeft="120dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:text="Hóa đơn"/>
+
+        </LinearLayout>
+        <TextView
+            android:textStyle="bold"
+            android:textSize="28dp"
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cảm ơn quý khách đã đặt hàng"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Chúng tôi rất vui khi thông báo đơn hàng đang được chuẩn bị"
+            android:textSize="25dp" />
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Thông tin khách hàng"
+            android:textSize="29dp"/>
+        <TextView
+            android:id="@+id/makhachhang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:layout_marginLeft="5dp"
+            android:text="Mã khách hàng"/>
+        <TextView
+            android:id="@+id/tenkhachhang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="25dp"
+            android:text="Tên"/>
+        <TextView
+            android:id="@+id/emailkhachhang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="25dp"
+            android:text="Email"/>
+        <TextView
+            android:id="@+id/diachi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="25dp"
+            android:text="Địa chỉ"/>
+        <TextView
+            android:id="@+id/sdtkhachhang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="25dp"
+            android:text="Sdt"/>
+        <TextView
+            android:textSize="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Dự kiến giao hàng: 2 - 4 ngày"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="29dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:text="Chi tiết dơn hàng"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/hoadonsanpham"/>
+        <LinearLayout
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp"
+                android:textSize="25sp"
+                android:text="Tổng tiền:"/>
+            <TextView
+                android:id="@+id/tienhoadon"
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500"/>
+            <Button
+                android:id="@+id/xacnhanhoadon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xác nhận"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

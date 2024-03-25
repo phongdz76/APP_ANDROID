@@ -1,57 +1,47 @@
 package com.example.doannam2;
 
-import static android.app.PendingIntent.getActivity;
 import static com.example.doannam2.Activity.manhinhchinh.MY_REQUEST_CODE;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.example.doannam2.Activity.manhinhchinh;
+import com.example.doannam2.Activity.phanquyen;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-
-public class MyProfile extends AppCompatActivity {
-
+public class MyProfilephanquyen extends AppCompatActivity {
     ImageView imgAvatar;
     EditText edtFullname,edtEmail,phonenumber;
     Button btnUpdateProfile;
-    manhinhchinh parentActivity;
+    phanquyen parentActivity;
     Uri mUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_profile);
+        setContentView(R.layout.activity_my_profilephanquyen);
         initui();
         linner();
         setUserInformation();
-        imgAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onclickPermission();
-            }
-        });
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            parentActivity = (manhinhchinh) extras.getSerializable("parentActivity");
+            parentActivity = (phanquyen) extras.getSerializable("parentActivity");
         }
     }
     public void initui(){
@@ -89,25 +79,15 @@ public class MyProfile extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(MyProfile.this, "update thành công", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyProfilephanquyen.this, "update thành công", Toast.LENGTH_SHORT).show();
                             parentActivity.showUserInformation();
                         }
                     }
                 });
     }
-    private void onclickPermission() {
-        if(parentActivity == null){
-            return;
-        }
-        if(this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            parentActivity.openGallery();
-        }else {
-            String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-            this.requestPermissions(permissions,MY_REQUEST_CODE);
-        }
-    }
 
-       private void setUserInformation() {
+
+    private void setUserInformation() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null)
         {

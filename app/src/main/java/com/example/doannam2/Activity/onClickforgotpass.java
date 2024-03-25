@@ -32,7 +32,6 @@ public class onClickforgotpass extends AppCompatActivity {
         setContentView(R.layout.activity_on_clickforgotpass);
 
         btnReset = findViewById(R.id.btnResetPassword);
-        btnBack = findViewById(R.id.btnpasswordback);
         edtEmailadress = findViewById(R.id.emailAdress);
         auth = FirebaseAuth.getInstance();
 

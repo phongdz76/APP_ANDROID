@@ -7,11 +7,16 @@
     tools:context=".Activity.phonenumber"
     android:orientation="vertical">
     <EditText
+        android:id="@+id/diachi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="nhap dia chi" />
+    <EditText
+        android:layout_marginTop="12dp"
         android:id="@+id/edtphonenumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="nhap so dien thoai"
-        android:inputType="textPassword"/>
+        android:hint="nhap so dien thoai" />
     <Button
         android:id="@+id/btnphone"
         android:layout_width="match_parent"
